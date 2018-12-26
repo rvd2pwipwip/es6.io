@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tagged Templates</title>
+  </head>
+  <body>
+    <div class="bio"></div>
+
+    <script>
+      const dict = {
+        HTML: "Hyper Text Markup Language",
+        CSS: "Cascading Style Sheets",
+        JS: "JavaScript"
+      };
+
+      // tagged templates article:
+      // https://codeburst.io/javascript-es6-tagged-template-literals-a45c26e54761
+
+      // spread values from sentence (first, last, "HTML", "CSS" and "JS")
+      function addAbbr(strings, ...values) {
+        // console.log(arguments);
+        // 0: (6) ["Hello my name is ", " ", " and I love to code ", ", ", " and ", ".", raw: Array(6)]
+        // 1: "Herve"
+        // 2: "Desrosiers"
+        // 3: "HTML"
+        // 4: "CSS"
+        // 5: "JS"
+        const abbreviated = values.map(v => {
+          if (dict[v]) {
+            return `<abbr style='text-decoration:none; border-bottom:none;' title="${
+              dict[v]
+            }">${v}</abbr>`;
+          }
+          return v;
+        });
+        // here i is the iterator for the strings array
+        return strings.reduce((sentence, string, i) => {
+          return `${sentence}${string}${abbreviated[i] || ""}`;
+        }, "");
+      }
+
+      const first = "Herve";
+      const last = "Desrosiers";
+      // const { HTML, CSS, JS } = dict;
+
+      // pass strings into ${} placeholders to make them values:
+      const sentence = addAbbr`Hello my name is ${first} ${last} and I love to code ${"HTML"}, ${"CSS"} and ${"JS"}.`;
+
+      const bio = document.querySelector(".bio");
+      const p = document.createElement("p");
+      p.innerHTML = sentence;
+      bio.appendChild(p);
+
+      // const sentence = `Hello my name is ${first} ${last} and I love to code ${HTML}, ${CSS} and ${JS}.`;
+      // console.log(sentence);
+    </script>
+  </body>
+</html>

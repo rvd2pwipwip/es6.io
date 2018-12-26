@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>let and const</title>
+  </head>
+  <body>
+    <script>
+      console.log("///// var /////");
+      // //var can be updated and redefined
+      // var width = 100;
+      // console.log(width);
+      // //updated var
+      // width = 200;
+      // console.log(width);
+      // //redefined var -no error message
+      // var width = 300;
+      // console.log(width);
+      //var variables are function scoped
+      function setWidth() {
+        var width = 100;
+        console.log(width);
+      }
+
+      console.log(setWidth()); // 100
+      // console.log(width); // error: width is scoped to setWidth()
+
+      //example where function scope tricks developers:
+      // var age = 100;
+      // if (age > 12) {
+      //   var dogYears = age * 7;
+      //   console.log(`You are ${dogYears} dog years old`);
+      // }
+      // console.log(dogYears); // dogYears leaks into global because if construct is NOT a function!
+
+      console.log("///// let /////");
+      // let is scoped to the containing {} block
+      var age = 100;
+      if (age > 12) {
+        let dogYears = age * 7;
+        console.log(`You are ${dogYears} dog years old`);
+      }
+      // console.log(dogYears); //error: dogYears is scoped inside {} of if
+      let height = 200;
+      const key = "abc123";
+    </script>
+  </body>
+</html>
